@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg">
-                <form method="POST" action="{{ route('admin.cities.update', $city) }}" enctype="multipart/form-data">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('admin.cities.update', $city) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div>
@@ -16,6 +16,25 @@
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                             value="{{ $city->name }}" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="icon" :value="__('icon')" />
+                        <x-text-input id="icon" class="block mt-1 w-full" type="file" name="icon" value="{{ $city->icon }}" autofocus autocomplete="icon" />
+                        <x-input-error :messages="$errors->get('icon')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="country" :value="__('country')" />
+
+                        <select name="country_id" id="country_id" class="py-3 rounded-lg pl-3 w-full border border-slate-300">
+
+                            <option value="">Choose country</option>
+                            @foreach ($countries as $country)
+                            <option value="{{$country->id}}">{{$country->name}}</option>
+                            @endforeach
+                        </select>
+
+                        <x-input-error :messages="$errors->get('category')" class="mt-2" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">

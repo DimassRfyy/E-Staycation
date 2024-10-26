@@ -16,6 +16,7 @@
 
                 @forelse($countries as $country)
                 <div class="item-card flex flex-row justify-between items-center">
+                    <img src="{{Storage::url($country->icon)}}" alt="" class="rounded-2xl object-cover w-[120px] h-[90px]">
                     <div class="flex flex-row items-center gap-x-3">
                         <div class="flex flex-col">
                             <p class="text-slate-500 text-sm">Name</p>

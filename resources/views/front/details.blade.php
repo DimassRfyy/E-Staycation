@@ -65,7 +65,7 @@
                 <a href="" class="card-facilities">
                     <div class="border border-[#DCDFE6] bg-white p-4 rounded-lg flex flex-col gap-6">
                         <div class="w-12 h-12 rounded-lg overflow-hidden flex shrink-0">
-                            <img src="{{asset('assets/images/icons/gym.svg')}}')}}" alt="icon">
+                            <img src="{{asset('assets/images/icons/gym.svg')}}" alt="icon">
                         </div>
                         <div class="flex flex-col gap-[2px]">
                             <p class="font-semibold">Gym Center</p>
@@ -76,7 +76,7 @@
                 <a href="" class="card-facilities">
                     <div class="border border-[#DCDFE6] bg-white p-4 rounded-lg flex flex-col gap-6">
                         <div class="w-12 h-12 rounded-lg overflow-hidden flex shrink-0">
-                            <img src="{{asset('assets/images/icons/free-wifi.svg')}}')}}" alt="icon">
+                            <img src="{{asset('assets/images/icons/free-wifi.svg')}}" alt="icon">
                         </div>
                         <div class="flex flex-col gap-[2px]">
                             <p class="font-semibold">Free WiFi</p>
@@ -87,7 +87,7 @@
                 <a href="" class="card-facilities">
                     <div class="border border-[#DCDFE6] bg-white p-4 rounded-lg flex flex-col gap-6">
                         <div class="w-12 h-12 rounded-lg overflow-hidden flex shrink-0">
-                            <img src="{{asset('assets/images/icons/room-service.svg')}}')}}" alt="icon">
+                            <img src="{{asset('assets/images/icons/room-service.svg')}}" alt="icon">
                         </div>
                         <div class="flex flex-col gap-[2px]">
                             <p class="font-semibold">Room Services</p>
@@ -98,7 +98,7 @@
                 <a href="" class="card-facilities">
                     <div class="border border-[#DCDFE6] bg-white p-4 rounded-lg flex flex-col gap-6">
                         <div class="w-12 h-12 rounded-lg overflow-hidden flex shrink-0">
-                            <img src="{{asset('assets//images/icons/swimming-pool.svg')}}')}}" alt="icon">
+                            <img src="{{asset('assets//images/icons/swimming-pool.svg')}}" alt="icon">
                         </div>
                         <div class="flex flex-col gap-[2px]">
                             <p class="font-semibold">Swimming Pool</p>

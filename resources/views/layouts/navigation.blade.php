@@ -45,13 +45,6 @@
                     </x-nav-link>
                 </div>
                 @endcan
-                @can('view hotel bookings')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.hotel_bookings.index')" :active="request()->routeIs('admin.hotel_bookings.index')">
-                        {{ __('My Bookings') }}
-                    </x-nav-link>
-                </div>
-                @endcan
 
             </div>
 

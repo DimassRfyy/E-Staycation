@@ -16,6 +16,15 @@
 
                 @forelse($cities as $city)
                 <div class="item-card flex flex-row justify-between items-center">
+                    <img src="{{Storage::url($city->icon)}}" alt="" class="rounded-2xl object-cover w-[120px] h-[90px]">
+                    <div class="flex flex-row items-center gap-x-3">
+                        <div class="flex flex-col">
+                            <p class="text-slate-500 text-sm">Country</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">
+                                {{ $city->country->name }}
+                            </h3>
+                        </div>
+                    </div>
                     <div class="flex flex-row items-center gap-x-3">
                         <div class="flex flex-col">
                             <p class="text-slate-500 text-sm">Name</p>

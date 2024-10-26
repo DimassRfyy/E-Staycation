@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Controllers\update;
+use Illuminate\Support\Facades\Storage;
 
 class HotelRoomController extends Controller
 {
@@ -40,7 +41,7 @@ class HotelRoomController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('photo')) {
-                $photoPath = $request->file('photo')->store('photos/' . date('Y/m/d'), 'public');
+                $photoPath = $request->file('photo')->store('hotelphotos', 'public');
                 $validated['photo'] = $photoPath;
             }
 
@@ -78,7 +79,10 @@ class HotelRoomController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('photo')) {
-                $photoPath = $request->file('photo')->store('photos/' . date('Y/m/d'), 'public');
+                if ($hotelRoom->photo) {
+                    Storage::disk('public')->delete($hotelRoom->photo);
+                }
+                $photoPath = $request->file('photo')->store('hotelphotos', 'public');
                 $validated['photo'] = $photoPath;
             }
 
@@ -97,7 +101,11 @@ class HotelRoomController extends Controller
      */
     public function destroy(Hotel $hotel, HotelRoom $hotelRoom)
     {
-        DB::transaction(function () use ($hotelRoom, $hotel) {
+        DB::transaction(function () use ($hotelRoom) {
+            // Hapus file icon jika ada
+            if ($hotelRoom->icon) {
+                Storage::disk('public')->delete($hotelRoom->icon);
+            }
             $hotelRoom->delete();
         });
 

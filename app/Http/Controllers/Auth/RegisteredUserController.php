@@ -55,6 +55,6 @@ class RegisteredUserController extends Controller
 
         // Debug untuk memastikan user berhasil dibuat
         // Redirect ke dashboard setelah berhasil login
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('front.index', absolute: false));
     }
 }

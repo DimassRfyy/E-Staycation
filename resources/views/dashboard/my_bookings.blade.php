@@ -94,7 +94,7 @@
                     <p class="text-xs leading-[18px] font-semibold text-[#757C98]">Home</p>
                 </div>
             </a>
-            <a href="search.html">
+            <a href="{{route('front.hotels')}}">
                 <div class="flex flex-col gap-1 items-center">
                     <div class="w-6 h-6 flex shrink-0">
                         <img src="{{asset('assets/images/icons/search-nonactive.svg')}}" alt="icon">

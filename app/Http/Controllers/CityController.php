@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCityRequest;
 use App\Models\City;
+use App\Models\Country;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Http\Requests\StoreCityRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CityController extends Controller
 {
@@ -24,7 +26,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.cities.create');
+        $countries = Country::orderByDesc('id')->get();
+        return view('admin.cities.create', compact('countries'));
     }
 
     /**
@@ -32,12 +35,14 @@ class CityController extends Controller
      */
     public function store(StoreCityRequest $request)
     {
-        // 1 validasi data
-        // 2 mulai insert  ke pada tabel di database
-        // 3 megembalikan pengguna ke halaman sebelumnya (index city)
-
         DB::transaction(function () use ($request) {
+
             $validated = $request->validated();
+
+            if ($request->hasFile('icon')) {
+                $iconPath = $request->file('icon')->store('Cityicons', 'public');
+                $validated['icon'] = $iconPath;
+            }
             $validated['slug'] = Str::slug($validated['name']);
             $newData = City::create($validated);
         });
@@ -58,16 +63,32 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-        return view('admin.cities.edit',compact('city'));
+        $countries = Country::orderByDesc('id')->get();
+        return view('admin.cities.edit',compact('city','countries'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCityRequest $request, City $city)
+    public function update(Request $request, City $city)
     {
         DB::transaction(function () use ($request,$city) {
-            $validated = $request->validated();
+            $validated = $request->validate([
+                'name' => ['required','string','max:255',],
+                'icon' => ['sometimes','image','mimes:png,jpg,jpeg,webp,svg'],
+                'country_id' => ['required','integer'],
+            ]);
+
+            if ($request->hasFile('icon')) {
+                // Hapus file icon lama jika ada
+                if ($city->icon) {
+                    Storage::disk('public')->delete($city->icon);
+                }
+                
+                $iconPath = $request->file('icon')->store('Cityicons', 'public');
+                $validated['icon'] = $iconPath;
+            }
+
             $validated['slug'] = Str::slug($validated['name']);
             $city->update($validated);
         });
@@ -80,10 +101,13 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        DB::transaction((function () use ($city) {
+        DB::transaction(function () use ($city) {
+            // Hapus file icon jika ada
+            if ($city->icon) {
+                Storage::disk('public')->delete($city->icon);
+            }
             $city->delete();
-        }));
-
+        });
         return redirect()->route('admin.cities.index');
     }
 }

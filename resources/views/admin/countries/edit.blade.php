@@ -17,6 +17,11 @@
                             value="{{ $country->name }}" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
+                    <div>
+                        <x-input-label for="icon" :value="__('icon')" />
+                        <x-text-input id="icon" class="block mt-1 w-full" type="file" name="icon" value="{{ $country->icon }}" autofocus autocomplete="icon" />
+                        <x-input-error :messages="$errors->get('icon')" class="mt-2" />
+                    </div>
 
                     <div class="flex items-center justify-end mt-4">
 

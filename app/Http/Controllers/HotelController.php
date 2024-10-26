@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\City;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class HotelController extends Controller
@@ -41,7 +42,7 @@ class HotelController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails/' . date('Y/m/d'), 'public');
+                $thumbnailPath = $request->file('thumbnail')->store('hotelThumbnails', 'public');
                 $validated['thumbnail'] = $thumbnailPath;
             }
 
@@ -57,7 +58,7 @@ class HotelController extends Controller
 
             if ($request->hasFile('photos')) {
                 foreach ($request->file('photos') as $photo) {
-                    $photoPath = $photo->store('photos/' . date('Y/m/d'), 'public');
+                    $photoPath = $photo->store('photos', 'public');
                     $hotel->photos()->create([
                         'photo' => $photoPath
                     ]);
@@ -91,44 +92,64 @@ class HotelController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateHotelRequest $request, Hotel $hotel)
-    {
-        DB::transaction(function () use ($request, $hotel) {
-            $validated = $request->validated();
+{
+    DB::transaction(function () use ($request, $hotel) {
+        $validated = $request->validated();
 
-            if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails/' . date('Y/m/d'), 'public');
-                $validated['thumbnail'] = $thumbnailPath;
+        // Hapus thumbnail lama jika ada file baru yang diunggah
+        if ($request->hasFile('thumbnail')) {
+            if ($hotel->thumbnail) {
+                Storage::disk('public')->delete($hotel->thumbnail);
             }
-            $validated['slug'] = Str::slug($validated['name']);
+            $thumbnailPath = $request->file('thumbnail')->store('hotelThumbnails', 'public');
+            $validated['thumbnail'] = $thumbnailPath;
+        }
 
-            // Debugging: Pastikan thumbnail ada di array
-            // dd($validated);
+        $validated['slug'] = Str::slug($validated['name']);
 
-            // Menyimpan data hotel ke database
-            $hotel->update($validated);
+        $hotel->update($validated);
 
-            if ($request->hasFile('photos')) {
-                foreach ($request->file('photos') as $photo) {
-                    $photoPath = $photo->store('photos/' . date('Y/m/d'), 'public');
-                    $hotel->photos()->create([
-                        'photo' => $photoPath
-                    ]);
-                }
+        if ($request->hasFile('photos')) {
+            // Menghapus foto lama
+            foreach ($hotel->photos as $photo) {
+                Storage::disk('public')->delete($photo->photo);
+                $photo->delete();
             }
-        });
 
-        return redirect()->route('admin.hotels.index');
-    }
+            foreach ($request->file('photos') as $photo) {
+                $photoPath = $photo->store('photos', 'public');
+                $hotel->photos()->create([
+                    'photo' => $photoPath
+                ]);
+            }
+        }
+    });
+
+    return redirect()->route('admin.hotels.index');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Hotel $hotel)
-    {
-        DB::transaction(function () use ($hotel) {
-            $hotel->delete();
-        });
+{
+    DB::transaction(function () use ($hotel) {
+        // Hapus file thumbnail jika ada
+        if ($hotel->thumbnail) {
+            Storage::disk('public')->delete($hotel->thumbnail);
+        }
 
-        return redirect()->route('admin.hotels.index')->with('success', 'Hotel deleted successfully.');
-    }
+        // Hapus semua file foto terkait dengan hotel ini
+        foreach ($hotel->photos as $photo) {
+            Storage::disk('public')->delete($photo->photo);
+            $photo->delete(); // Hapus record dari database
+        }
+
+        $hotel->delete();
+    });
+
+    return redirect()->route('admin.hotels.index')->with('success', 'Hotel deleted successfully.');
+}
+
 }
