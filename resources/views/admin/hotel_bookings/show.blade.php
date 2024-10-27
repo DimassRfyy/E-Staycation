@@ -22,7 +22,7 @@
                             </p>
                         </div>
                     </div>
-                    @if(!$hotelBooking->is_paid)
+                    @if(!$hotelBooking->is_paid && $hotelBooking->proof !== 'dummytrx.png')
                     <form action="{{ route('admin.hotel_bookings.update', $hotelBooking) }}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -64,6 +64,10 @@
                             @if($hotelBooking->is_paid)
                             <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">
                                 SUCCESS
+                            </span>
+                            @elseif($hotelBooking->proof == 'dummytrx.png')
+                            <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
+                                Not yet paid
                             </span>
                             @else
                             <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">

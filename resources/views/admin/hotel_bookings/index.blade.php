@@ -43,6 +43,22 @@
                             Rp {{ number_format($booking->total_amounts,0,',','.') }}
                         </h3>
                     </div>
+                    <div class="flex flex-col">
+                        <p class="text-slate-500 text-sm">Status</p>
+                        @if($booking->is_paid)
+                        <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">
+                            SUCCESS
+                        </span>
+                        @elseif($booking->proof == 'dummytrx.png')
+                        <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
+                            Not yet paid
+                        </span>
+                        @else
+                        <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
+                            PENDING
+                        </span>
+                        @endif
+                    </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">
                         <a href="{{ route('admin.hotel_bookings.show', $booking) }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             Manage

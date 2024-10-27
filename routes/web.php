@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/book/payment/{hotel_booking}/store', [FrontController::class, 'hotel_payment_store'])->name('front.hotel.book.payment.store');
 
         Route::get('/book/finish/', [FrontController::class, 'hotel_book_finish'])->name('front.book_finish');
+
+        Route::delete('/booking/delete/{hotelBooking}',[FrontController::class,'destroy_booking'])->name('front.destroy_booking');
     });
 
     Route::middleware('can:view hotel bookings')->group(function () {
@@ -45,10 +47,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard/my-bookings/{hotelBooking}', [DashboardController::class, 'booking_details'])->name('dashboard.booking_details');
     });
-
-    //  prefix untuk membedakan dan membukus agar untuk membedakan antara admin dan non admin
-    // Resource digunakan untuk mengambil semua data yang ada di controleer seperti index,destroy,update dll
-
 
     Route::prefix('admin')->name('admin.')->group(function () {
 

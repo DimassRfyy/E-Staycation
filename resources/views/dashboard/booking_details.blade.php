@@ -21,9 +21,10 @@
                     <p class="font-semibold">Hotel Details</p>
                     @if($hotelBooking->is_paid)
                     <p class="font-semibold text-xs leading-[18px] text-[#F8F8F8] rounded-full bg-[#54A917] p-[6px_12px] w-fit">Success</p>
+                    @elseif ($hotelBooking->proof == 'dummytrx.png')
+                    <p class="font-semibold text-xs leading-[18px] text-[#F8F8F8] rounded-full bg-[#F98D3F] p-[6px_12px] w-fit">Not yet paid</p>
                     @else
                     <p class="font-semibold text-xs leading-[18px] text-[#F8F8F8] rounded-full bg-[#F98D3F] p-[6px_12px] w-fit">Pending</p>
-
                     @endif
                 </div>
                 <div id="Order-details" class="flex flex-col rounded-lg border border-[#DCDFE6]">
@@ -115,8 +116,14 @@
                 </div>
             </div>
             <div id="Bottom-nav" class="fixed bottom-0 w-full max-w-[640px] flex flex-col p-[24px_18px] border-t border-[#DCDFE6] gap-4 bg-white">
-                <a href="" class="flex items-center justify-center font-semibold p-[12px_24px] rounded-lg w-full h-12 bg-[#4041DA] text-white">Contact Customer Service</a>
-                <a href="home-login.html" class="flex items-center justify-center font-semibold p-[12px_24px] rounded-lg w-full h-12 bg-[#4041DA17] text-[#4041DA]">Back to Homepage</a>
+                @if ($hotelBooking->proof == 'dummytrx.png')
+                <a href="{{ route('front.hotel.book.payment', $hotelBooking) }}" class="flex items-center justify-center font-semibold p-[12px_24px] rounded-lg w-full h-12 bg-[#4041DA] text-white">Lanjutkan Pembayaran</a>
+                <form method="POST" action="{{ route('front.destroy_booking', $hotelBooking) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="flex items-center justify-center font-semibold p-[12px_24px] rounded-lg w-full h-12 bg-[#F93F6C] text-white">Batal Lakukan Booking</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>

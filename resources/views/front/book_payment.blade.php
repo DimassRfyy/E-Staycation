@@ -5,11 +5,12 @@
     </div>
     <div class="relative z-10 flex flex-col gap-6 mt-[60px]">
         <div class="top-menu flex justify-between items-center px-[18px]">
-            <a href="hotel-rooms-type.html" class="">
-                <div class="w-[42px] h-[42px] flex shrink-0">
-                    <img src="{{asset('assets/images/icons/back.svg')}}" alt="icon">
-                </div>
-            </a>
+            <a href="{{ url()->previous() }}" class=""
+            onclick="return confirm('Yakin untuk tidak melanjutkan pembayaran? Booking akan disimpan di activity. Kamu bisa menghapus atau melanjutkan pembayaran.')">
+             <div class="w-[42px] h-[42px] flex shrink-0">
+                 <img src="{{asset('assets/images/icons/back.svg')}}" alt="icon">
+             </div>
+         </a>         
             <p class="font-semibold text-lg leading-[28px] text-white text-center">Complete your booking</span></p>
             <div class="dummy-spacer w-[42px] h-[42px] flex shrink-0">
             </div>

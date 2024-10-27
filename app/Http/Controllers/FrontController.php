@@ -146,6 +146,12 @@ class FrontController extends Controller
         return redirect()->route('front.book_finish');
     }
 
+
+    public function destroy_booking(HotelBooking $hotelBooking) {
+        $hotelBooking->delete();
+        
+    return redirect()->route('dashboard.my-bookings')->with('success', 'Booking berhasil dihapus.');
+    }
     public function hotel_book_finish(){
         return view('front.book_finish');
     }

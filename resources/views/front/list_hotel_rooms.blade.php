@@ -5,7 +5,7 @@
     </div>
     <div class="relative z-10 px-[18px] flex flex-col gap-6 mt-[60px]">
         <div class="top-menu flex justify-between items-center">
-            <a href="hotel-details.html" class="">
+            <a href="" class="">
                 <div class="w-[42px] h-[42px] flex shrink-0">
                     <img src="{{asset('assets/images/icons/back.svg')}}" alt="icon">
                 </div>

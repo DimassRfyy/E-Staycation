@@ -20,6 +20,8 @@
                     <div class="flex flex-col gap-[2px]">
                         @if($booking->is_paid)
                         <p class="font-semibold">Booking Success</p>
+                        @elseif ($booking->proof == 'dummytrx.png')
+                        <p class="font-semibold">Haven't paid yet</p>
                         @else
                         <p class="font-semibold">Waiting for Confirmation</p>
 
