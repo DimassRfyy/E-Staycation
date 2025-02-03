@@ -12,9 +12,13 @@
               <img src="assets/images/icons/user.svg" class="w-full h-full object-cover" alt="icon">
             @endguest
 
-            @auth
-              <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="icon">
-            @endauth
+        @auth
+          @if(Auth::user()->google_id)
+                <img src="{{ Auth::user()->avatar }}" class="w-full h-full object-cover" alt="icon">
+            @else
+                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="icon">
+            @endif
+        @endauth
             </div>
           </a>
           <div class="flex flex-col gap-[2px] text-center">

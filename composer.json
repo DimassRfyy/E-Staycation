@@ -8,6 +8,7 @@
         "php": "^8.2",
         "intervention/image": "^3.8",
         "laravel/framework": "^11.9",
+        "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.9"
     },

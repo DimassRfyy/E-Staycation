@@ -75,7 +75,7 @@
                 <div class="input-container flex flex-col gap-2">
                     <div class="flex flex-col gap-[2px]">
                         <p class="font-medium text-sm leading-[21px] text-[#757C98]">Transfer to</p>
-                        <p class="font-semibold">PT. Bobo Super App</p>
+                        <p class="font-semibold">PT. E-Staycation Indonesia</p>
                     </div>
                     <div class="flex items-center gap-[10px] p-[12px_16px] rounded-lg bg-[#F8F8F8]">
                         <div class="h-4 flex shrink-0">

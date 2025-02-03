@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\HotelBookingController;
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\HotelRoomController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HotelRoomController;
+use App\Http\Controllers\HotelBookingController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
+Route::get('/auth/google/redirect', [SocialiteController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [SocialiteController::class, 'callback'])->name('google.callback');
 Route::get('/hotels', [FrontController::class, 'hotels'])->name('front.hotels');
 Route::post('/hotels/search/', [FrontController::class, 'search_hotels'])->name('front.search.hotels');
 Route::get('/hotels/list/{keyword}', [FrontController::class, 'list_hotels'])->name('front.hotels.list');

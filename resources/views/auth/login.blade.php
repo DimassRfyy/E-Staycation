@@ -7,11 +7,15 @@
         <form method="POST" action="{{ route('login') }}" class="flex flex-col justify-between flex-1 px-[18px] pt-8 pb-6">
             @csrf
 
-            <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <h1 class="font-semibold text-2xl leading-[36px]">Create Your Account 🙌🏻 </h1>
                     <p class="font-medium text-sm leading-[21px] text-[#757C98]">Excited to have you on board!</p>
                 </div>
+                <a href="{{ route('google.redirect') }}" class="flex items-center gap-3 h-12 border border-[#DCDFE6] rounded-lg justify-center hover:bg-gray-100 transition-all duration-300">
+                    <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google Logo" class="w-5 h-5">
+                    <p class="font-semibold text-sm leading-[21px] text-[#070625]">Login with Google</p>
+                </a>  
                 <div class="flex flex-col gap-6">
                     <div class="input-container flex flex-col gap-2">
                         <p class="font-medium text-sm leading-[21px]">Email Address</p>
@@ -47,7 +51,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="flex items-center justify-between mt-1">
+                        <div class="flex items-center justify-between mt-4">
                             <label class="font-medium text-sm leading-[21px] text-[#757C98] flex items-center gap-[6px]">
                                 <input type="checkbox" name="" id="" class="peer w-5 h-5 appearance-none checked:border-2 checked:border-solid checked:border-white rounded-md checked:bg-[#4041DA] ring-1 ring-[#757C98] transition-all duration-300">
                                 <span class="peer-checked:text-[#070625] transition-all duration-300">Remember me</span>
@@ -59,8 +63,9 @@
                 <button type="submit" class="!bg-[#4041DA] p-[12px_24px] h-12 flex items-center gap-3 rounded-lg justify-center">
                     <p class="font-semibold text-sm leading-[21px] text-white">Sign In</p>
                 </button>
+                
             </div>
-            <p class="font-medium text-sm leading-[21px] text-[#757C98] text-center mt-3">Dont have an account? <a href="{{ route('register') }}" class="font-semibold text-[#4041DA]">Create Account</a></p>
+            <p class="font-medium text-sm leading-[21px] text-[#757C98] text-center">Dont have an account? <a href="{{ route('register') }}" class="font-semibold text-[#4041DA]">Create Account</a></p>
         </form>
     </section>
 @endsection
