@@ -49,6 +49,7 @@ E-Staycation adalah website yang digunakan orang-orang untuk melakukan pemesanan
   - Menampilkan kamar yang tersedia dari suatu hotel
   - Fitur booking dan upload pembayaran
   - Fitur melihat daftar bookings, details booking dan menampilkan statusnya
+  - Fitur cancel dan continue pembayaran
 
 <p></p>
 
